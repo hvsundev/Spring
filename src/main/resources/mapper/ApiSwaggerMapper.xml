@@ -3,10 +3,10 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
- <mapper namespace="com.moddk.swagger.ApiSwaggerMapper">
+ <mapper namespace="com.moddk.swagger.mapper.TodoMapper">
     
-	<select id="getTodoList" resultType="com.moddk.swagger.vo.Todo">
-		SELECT * FROM todo;
+	<select id="getTodoList" resultType="com.moddk.swagger.vo.TodoVO">
+		SELECT * FROM todo.todo;
 	</select>
     
  </mapper>

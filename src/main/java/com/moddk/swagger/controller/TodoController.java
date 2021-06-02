@@ -3,7 +3,6 @@ package com.moddk.swagger.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,8 +32,8 @@ public class TodoController {
 	@ResponseBody
 	private String getTodoList() {
 		
-		TodoVO todo = new TodoVO();
-		
+		System.out.println("in getTodoList()");
+
 		List<TodoVO> todoList = service.getTodoList();
 		System.out.println("todoList >>> " +  todoList);
 		
