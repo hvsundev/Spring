@@ -5,8 +5,26 @@
  
  <mapper namespace="com.moddk.swagger.mapper.TodoMapper">
     
-	<select id="getTodoList" resultType="com.moddk.swagger.vo.TodoVO">
-		SELECT * FROM todo.todo;
+	<select id="getAllTodoList" resultType="com.moddk.swagger.vo.TodoVO">
+		SELECT * FROM todo WHERE user_id=#{user_id}
 	</select>
+    
+	<select id="getActiveTodoList" resultType="com.moddk.swagger.vo.TodoVO">
+		SELECT * FROM todo WHERE user_id=#{user_id} AND complete_yn='N'
+	</select>
+    
+	<select id="getCompletedTodoList" resultType="com.moddk.swagger.vo.TodoVO">
+		SELECT * FROM todo WHERE user_id=#{user_id} AND complete_yn='Y'
+	</select>
+	
+	<insert id="addTodoList">
+		INSERT INTO todo(contents, user_id) VALUES (#{contents}, #{user_id})
+	</insert>
+	
+	<update id="updateComYnOfTodoList">
+		{
+			call updateComYnOfTodoList( #{idx} )
+		}
+	</update>
     
  </mapper>

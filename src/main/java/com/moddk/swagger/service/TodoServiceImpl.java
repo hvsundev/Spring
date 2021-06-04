@@ -15,8 +15,24 @@ public class TodoServiceImpl implements TodoService {
 	private TodoMapper mapper;
 
 	@Override
-	public List<TodoVO> getTodoList() {
-		return mapper.getTodoList();
+	public List<TodoVO> getTodoList(int searchType, String user_id) {
+		if(searchType == 0) {
+			return mapper.getAllTodoList(user_id);
+		} else if(searchType == 1) {
+			return mapper.getActiveTodoList(user_id);
+		} else {
+			return mapper.getCompletedTodoList(user_id);
+		}
+	}
+
+	@Override
+	public int addTodoList(String contents) {
+		return mapper.addTodoList(contents);
+	}
+
+	@Override
+	public int updateComYnOfTodoList(int idx) {
+		return mapper.updateComYnOfTodoList(idx);
 	}
 	
 }
