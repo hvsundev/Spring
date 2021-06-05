@@ -19,7 +19,7 @@
 		<div class="loginWrap">
 			<div class="intro">
 				<p class="color_green">Welcome!</p>
-				<p class="color_grey">오늘의 할 일에 오신 것을 환영합니다.</p>
+				<p class="color_grey">오늘의 할 일은 무엇인가요?</p>
 			</div>
 			<div class="login">
 				<div>
@@ -38,16 +38,24 @@
 </body>
 
 <script type="text/javascript">
+
+	// 아이디 기억 로직
+	$(".rmbId").on('click', function() {
+		// 체크여부
+		var flag = $(this).prop("checked");
+	});
 		
 	function checkLogin() {
 		
 		var user_id = $("#user_id").val();
+		var user_pw = $("#user_pw").val();
 		$.ajax({
 			url: '/accessLogin',
 			method: 'POST',
 			async: true,
 			data: {
-				"user_id" : user_id
+				"user_id" : user_id,
+				"user_pw" : user_pw,
 			},
 			success: function() {
 			}

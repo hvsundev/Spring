@@ -33,7 +33,7 @@ public class TodoController {
 	}
 	
 	@RequestMapping(value = "/accessLogin", method = RequestMethod.POST)
-	private String accessLogin(HttpServletRequest req, @RequestParam String user_id) {
+	private String accessLogin(HttpServletRequest req, @RequestParam String user_id, @RequestParam String user_pw) {
 		
 		System.out.println("user_id >>> " + user_id);
 		
@@ -42,6 +42,7 @@ public class TodoController {
 		
 		//TODO: 로그인 처리 로직
 		//TODO: home에서 로그인되지않은 회원일 경우 로그인화면으로 이동
+		
 		
 		return "redirect:/home";
 	}
@@ -74,9 +75,8 @@ public class TodoController {
 		
 		System.out.println("searchType " + searchType);
 		
-//		HttpSession session = req.getSession();
-//		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
-		String user_id = "dabinch";
+		HttpSession session = req.getSession();
+		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
 		
 		List<TodoVO> todoList = service.getTodoList(searchType, user_id);
 		
@@ -91,11 +91,11 @@ public class TodoController {
 	@ResponseBody
 	private HashMap<String, Object> addTodoList(HttpServletRequest req, @RequestParam String contents, @RequestParam int searchType) {
 		
-		int isSuccess = service.addTodoList(contents);
-		System.out.println(isSuccess > 0 ? "성공" : "실패");
-		
 		HttpSession session = req.getSession();
 		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
+		
+		int isSuccess = service.addTodoList(contents, user_id);
+		System.out.println(isSuccess > 0 ? "성공" : "실패");
 		
 		HashMap<String, Object> data = new HashMap<>();
 		data.put("isSuccess", isSuccess);
@@ -107,11 +107,17 @@ public class TodoController {
 	@ApiOperation(value="체크 시 완료여부 반영")
 	@RequestMapping(value = "/update/todoList", method = RequestMethod.GET)
 	@ResponseBody
-	private String updateComYnOfTodoList(@RequestParam int idx) {
+	private HashMap<String, Object> updateComYnOfTodoList(HttpServletRequest req, @RequestParam int searchType, @RequestParam int idx) {
 		
 		int result = service.updateComYnOfTodoList(idx);
 		System.out.println(result);
+		
+		HttpSession session = req.getSession();
+		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
+		
+		HashMap<String, Object> data = new HashMap<>();
+		data.put("todoList", service.getTodoList(searchType, user_id));
 		 
-		return gson.toJson(result);
+		return data;
 	}
 }

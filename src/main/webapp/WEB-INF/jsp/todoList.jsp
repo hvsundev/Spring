@@ -70,34 +70,36 @@
 	// $(document).on('click', className, function() {})으로 시도해보았으나
 	// 이렇게되면 문제가 생겨서 function으로 따로 빼고 ajax 후 해당 function 호출함
 	function initCheckBoxClickEvent() {
-		console.log("메소드 >>> ", 1);
-		
 		$("input[type='checkbox']").on('click', function() {
-			var todoIndex = $(this).val();
+			// 체크여부
 			var flag = $(this).prop("checked");
-			console.log("idx >>> ", todoIndex);
+			
+			var todoIndex = $(this).val();
+			var subType = document.getElementsByClassName("active")[0].value;
 			
 			$.ajax({
 				url: '/update/todoList',
 				method: 'GET',
 				async: true,
 				data: {
-					"idx" : todoIndex
+					"idx" : todoIndex,
+					"searchType" : subType
 				},
-				success: function() {
+				success: function(data) {
 					if(flag) {
 						$(".list" + todoIndex).addClass('checked');
 					} else {
 						$(".list" + todoIndex).removeClass('checked');
 					}
 					
+					refreshList(data);
+					initCheckBoxClickEvent();
 				}
 			})
 		});
 	}
 	
 	function changeType(type) {
-		console.log("메소드 >>> ", 2);
 		console.log("현재 타입 >>> ", type);
 		$.ajax({
 			url: '/select/todoList',
@@ -114,8 +116,6 @@
 	
 	// add 버튼 클릭 시
 	function clickAddBtn() {
-
-		console.log("메소드 >>> ", 3);
 		// 이미 추가용 프레임이 존재하는 경우
 		if($(".newTodoFrame").length) {
 			// 텍스트 박스에 값이 존재할 때
@@ -137,16 +137,7 @@
 		}
 	}
 	
-	function addNewTodo() {
-		console.log("메소드 >>> ", 4);
-		$(".list").append("<li class='newTodoFrame'></li>");
-		$(".newTodoFrame").append("<input type='text' class='newTodoContents'>");
-		$(".newTodoFrame").append("<button onclick='addTodo()'>추가</button><button onclick='cancleAdd()'>취소</button>");
-	}
-	
 	function addTodo() {
-		console.log("메소드 >>> ", 5);
-		
 		var contents = $(".newTodoContents").val();
 		var subType = document.getElementsByClassName('active')[0].value;
 		
@@ -186,7 +177,6 @@
 	}
 	
 	function cancleAdd() {
-		console.log("메소드 >>> ", 6);
 		if($(".newTodoContents").val().length > 0) {
 			var flag = confirm("이미 할 일이 존재합니다. 취소하시겠습니까?");
 			if(flag) {
@@ -195,6 +185,12 @@
 		} else {
 			$(".newTodoFrame").remove();
 		}
+	}
+	
+	function addNewTodo() {
+		$(".list").append("<li class='newTodoFrame'></li>");
+		$(".newTodoFrame").append("<input type='text' class='newTodoContents'>");
+		$(".newTodoFrame").append("<button onclick='addTodo()'>추가</button><button onclick='cancleAdd()'>취소</button>");
 	}
 
 </script>

@@ -11,7 +11,7 @@ public interface TodoMapper {
 	public List<TodoVO> getAllTodoList(String user_id);
 	public List<TodoVO> getActiveTodoList(String user_id);
 	public List<TodoVO> getCompletedTodoList(String user_id);
-	public int addTodoList(String contents);
+	public int addTodoList(String contents, String user_id);
 	public int updateComYnOfTodoList(int idx);
 }
 

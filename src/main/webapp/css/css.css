@@ -2,7 +2,14 @@
 
 body {
 	margin: 0 auto;
-	background-color: #bca38f;
+	background-image: url("../img/background.png");
+	background-size: 80%;
+	-ms-overflow-style: none;
+}
+
+/* √‚√≥: https://wooaoe.tistory.com/49 */
+::-webkit-scrollbar { 
+	display: none;
 }
 
 div.list_box {
@@ -32,29 +39,43 @@ div.btn_box {
 .subTab {
 	width: 80%;
 	display: inline;
+	cursor: pointer;
 }
 
 .subTab li {
 	list-style: none;
 	display: inline-block;
 	padding: 10px;
-	background-color: white;
+	background-color: #9f3b3b;
+	color: #4f1212;
+	font-size: 0.8rem;
+	border: 1px solid #9f3b3b;
+	font-weight: 700;
 }
 
 .subTab li.active {
-	background-color: black;
+	background-color: #f05858;
+	color: white;
+	border: 1px solid white;
+}
+
+.list {
+	height: 320px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .list li {
 	list-style: none;
 	padding: 20px 10px;
-	margin: 0.5rem 0;
+	margin-bottom: 0.5rem;
 	background-color: #dfc1ae;
 }
 
 .list li.checked {
-	background-color: gray;
-	color: black;
+	background-color: #342323;
+	color: #715555;
+	
 }
 
 span.count {
@@ -78,8 +99,9 @@ span.count {
 
 div.btnAdd {
 	padding: 10px;
+	font-weight: 700;
 	text-align: center;
-	font-size: 1rem;
+	font-size: 0.8rem;
 	border-radius: 10px;
 	background-color: #37322f;
 	width: 50px;

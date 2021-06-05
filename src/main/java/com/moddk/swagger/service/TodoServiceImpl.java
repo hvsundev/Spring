@@ -26,8 +26,8 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
-	public int addTodoList(String contents) {
-		return mapper.addTodoList(contents);
+	public int addTodoList(String contents, String user_id) {
+		return mapper.addTodoList(contents, user_id);
 	}
 
 	@Override
