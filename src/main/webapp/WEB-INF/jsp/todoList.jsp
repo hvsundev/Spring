@@ -40,22 +40,30 @@
 		</div>
 		
 		<div class="list">
-			<c:forEach var="item" items="${ todoList }">
-				<c:choose>
-					<c:when test="${fn:length(todoList) == 0}">
-						<span>등록된 할 일이 없습니다.</span>
-					</c:when>
-					<c:otherwise>
+			<c:choose>
+				<c:when test="${fn:length(todoList) == 0}">
+					<span class="empty_notice">등록된 할 일이 없습니다.</span>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="item" items="${ todoList }">
 						<li class="list${ item.idx } ${ item.complete_yn == 'Y' ? 'checked' : '' }">
-							<input type="checkbox" value="${ item.idx }" id="middle${ item.idx }" ${ item.complete_yn == 'Y' ? 'checked' : '' }>
-							<label for="middle${ item.idx }">${ item.contents }</label>
+							<input type="checkbox" value="${ item.idx }" id="middle${ item.idx }" ${ item.complete_yn == 'Y' ? 'checked' : ''}><label for="middle${ item.idx }">${ item.contents }</label>
 							<button class="delBtn" onclick="deleteTodo(${ item.idx })" style="display: none;">삭제</button>
 						</li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
+	
+	<!-- 
+	<div class="modal">
+		<div>팝업창</div>
+		<div>이미 할 일이 존재합니다. 새로 작성하시겠습니까?</div>
+		<button>확인</button>
+		<button>취소</button>
+	</div>
+	 -->
 </body>
 
 <script type="text/javascript">
@@ -91,8 +99,22 @@
 		});
 	}
 	
-	function deleteTodo(todoIdx) {
-		console.log("todoIdx >>> ", todoIdx);
+	function deleteTodo(todoIndex) {
+		
+		var subType = document.getElementsByClassName("active")[0].value;
+		
+		$.ajax({
+			url: '/delete/todoList',
+			method: 'POST',
+			async: true,
+			data: {
+				"idx" : todoIndex,
+				"searchType" : subType
+			},
+			success: function(data) {
+				refreshList(data);
+			}
+		})
 	}
 	
 	function setTime() {
@@ -150,7 +172,6 @@
 					}
 					
 					refreshList(data);
-					initCheckBoxClickEvent();
 				}
 			})
 		});
@@ -166,7 +187,6 @@
 			},
 			success: function(data) {
 				refreshList(data);
-				initCheckBoxClickEvent();
 			}
 		})
 	}
@@ -230,7 +250,11 @@
 			$(".list").append('<li class="list' + todoList[i].idx + ' ' + checked + '"></li>');
 			$(".list" + todoList[i].idx).append('<input type="checkbox" value="' + todoList[i].idx + '" id="middle' + todoList[i].idx + '" ' + checked + '>');
 			$(".list" + todoList[i].idx).append('<label for="middle' + todoList[i].idx + '">' + todoList[i].contents + '</label>');
+			$(".list" + todoList[i].idx).append('<button class="delBtn" onclick="deleteTodo(' + todoList[i].idx + ')" style="display: none;">삭제</button>');
 		}
+		
+		initCheckBoxClickEvent();
+		showDeleteBtn();
 	}
 	
 	function cancleAdd() {
@@ -246,16 +270,16 @@
 	
 	function addNewTodo() {
 		
+		$.alert("안늉", {em: 'Billible', title: '인사'});
+		
 		if($(".list").children().length > 0) {
 			$(".list > li:first-child").before("<li class='newTodoFrame'></li>");
 			$(".newTodoFrame").append("<input type='text' class='newTodoContents'>");
-			$(".newTodoFrame").append("<button onclick='addTodo()'>추가</button><button onclick='cancleAdd()'>취소</button>");
-		
+			$(".newTodoFrame").append("<div class='btn_wrap'><button onclick='addTodo()'>추가</button><button onclick='cancleAdd()'>취소</button></div>");
 		} else {
 			$(".list").append("<li class='newTodoFrame'></li>");
 			$(".newTodoFrame").append("<input type='text' class='newTodoContents'>");
-			$(".newTodoFrame").append("<button onclick='addTodo()'>추가</button><button onclick='cancleAdd()'>취소</button>");
-			
+			$(".newTodoFrame").append("<div class='btn_wrap'><button onclick='addTodo()'>추가</button><button onclick='cancleAdd()'>취소</button></div>");
 		}	
 	}
 	

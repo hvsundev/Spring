@@ -14,5 +14,7 @@ public interface TodoService {
 	
 	// TodoList 값 변경하기
 	public int updateComYnOfTodoList(int idx);
-		
+	
+	// Todo 삭제하기
+	public int deleteTodo(int idx, String user_id);		
 }

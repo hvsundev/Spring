@@ -34,5 +34,10 @@ public class TodoServiceImpl implements TodoService {
 	public int updateComYnOfTodoList(int idx) {
 		return mapper.updateComYnOfTodoList(idx);
 	}
+
+	@Override
+	public int deleteTodo(int idx, String user_id) {
+ 		return mapper.deleteTodo(idx, user_id);
+	}
 	
 }

@@ -21,6 +21,10 @@
 		INSERT INTO todo(contents, user_id) VALUES (#{contents}, #{user_id})
 	</insert>
 	
+	<delete id="deleteTodo">
+		DELETE FROM todo WHERE idx=#{idx} AND user_id=#{user_id}
+	</delete>
+	
 	<update id="updateComYnOfTodoList">
 		{
 			call updateComYnOfTodoList( #{idx} )

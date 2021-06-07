@@ -120,4 +120,23 @@ public class TodoController {
 		 
 		return data;
 	}
+	
+	@ApiOperation(value = "투두 삭제하기")
+	@RequestMapping(value = "/delete/todoList", method = RequestMethod.POST)
+	@ResponseBody
+	private HashMap<String, Object> deleteTodo(HttpServletRequest req, @RequestParam int idx, @RequestParam int searchType) {
+		
+		
+		HttpSession session = req.getSession();
+		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
+		
+		service.deleteTodo(idx, user_id);
+
+		List<TodoVO> todoList = service.getTodoList(searchType, user_id);
+		
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		data.put("todoList", todoList);
+		
+		return data;
+	}
 }

@@ -19,7 +19,7 @@
 		<div class="loginWrap">
 			<div class="intro">
 				<p class="color_green">Welcome!</p>
-				<p class="color_grey">오늘의 할 일은 무엇인가요?</p>
+				<p class="color_grey">오늘의 할일</p>
 			</div>
 			<div class="login">
 				<div>
