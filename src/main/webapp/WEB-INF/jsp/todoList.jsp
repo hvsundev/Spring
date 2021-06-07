@@ -15,19 +15,28 @@
 </head>
 <body>
 	<div class="list_box">
-		<div class="title">
-			<h3>TodoList</h3>
+		<!-- <span class="count">${fn:length(todoList)}개</span>  -->
+		<div class="time_wrap">
+			<div>
+				<input type="date" id="currentDate">
+			</div>
+			<div class="time_wrap_box">
+				<div id="box_hour1"></div>
+				<div id="box_hour2"></div>
+				<span></span>
+				<div id="box_minite1"></div>
+				<div id="box_minite2"></div>
+			</div>
 		</div>
-			<div class="btn_box">
-				<div class="subTab">
-					<li class="active" value="0" onclick="changeType(0)">ALL</li>
-					<li value="1" onclick="changeType(1)">ACTIVE</li>
-					<li value="2" onclick="changeType(2)">COMPLETED</li>
-					<div class="btnAdd" onclick="clickAddBtn()">
-						Add
-					</div>
+		<div class="btn_box">
+			<div class="subTab">
+				<li class="active" value="0" onclick="changeType(0)">ALL</li>
+				<li value="1" onclick="changeType(1)">ACTIVE</li>
+				<li value="2" onclick="changeType(2)">COMPLETED</li>
+				<div class="btnAdd" onclick="clickAddBtn()">
+					Add
 				</div>
-			<!-- <span class="count">${fn:length(todoList)}개</span>  -->
+			</div>
 		</div>
 		
 		<div class="list">
@@ -40,6 +49,7 @@
 						<li class="list${ item.idx } ${ item.complete_yn == 'Y' ? 'checked' : '' }">
 							<input type="checkbox" value="${ item.idx }" id="middle${ item.idx }" ${ item.complete_yn == 'Y' ? 'checked' : '' }>
 							<label for="middle${ item.idx }">${ item.contents }</label>
+							<button class="delBtn" onclick="deleteTodo(${ item.idx })" style="display: none;">삭제</button>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -63,7 +73,54 @@
 			listEl.removeClass("active");
 			$(this).addClass("active");
 		})
+		
+		showDeleteBtn();
+		setTime();
+		setInterval(setTime, 1000);
+		
 	})
+	
+	function showDeleteBtn() {
+		$(".list > li").each(function(index, item) {
+			$(item).mouseover(function() {
+				$(item).children("button").css("display", "inline");
+			});
+			$(item).mouseout(function() {
+				$(item).children("button").css("display", "none");
+			});
+		});
+	}
+	
+	function deleteTodo(todoIdx) {
+		console.log("todoIdx >>> ", todoIdx);
+	}
+	
+	function setTime() {
+		
+		// 방법 1
+		const time = new Date();
+		var hour = time.getHours().toString();
+		var minutes = time.getMinutes().toString();
+
+		hour = hour.length == 1 ? "0" + hour : hour;
+		minutes = minutes.length == 1 ? "0" + minutes : minutes;
+	    
+		document.getElementById("currentDate").value = new Date().toISOString().substring(0, 10);
+		document.getElementById('box_hour1').innerHTML = hour.substring(0, 1);
+		document.getElementById('box_hour2').innerHTML = hour.substring(1, 2);
+		document.getElementById('box_minite1').innerHTML = minutes.substring(0, 1);
+		document.getElementById('box_minite2').innerHTML = minutes.substring(1, 2);
+		
+	    // 방법 2
+	    /*
+		document.getElementById("currentDate").value = new Date().toISOString().substring(0, 10);
+		document.getElementById('box_hour1').innerHTML = new Date().toISOString().slice(11, 12);
+		document.getElementById('box_hour2').innerHTML = new Date().toISOString().slice(12, 13);
+		document.getElementById('box_minite1').innerHTML = new Date().toISOString().slice(14, 15);
+		document.getElementById('box_minite2').innerHTML = new Date().toISOString().slice(15, 16);
+		*/
+	}
+	
 	
 	// 체크박스 초기화
 	// ajax 후 다시 크려진 엘리먼트에는 클릭이벤트가 적용되지 않는 현상으로
@@ -188,11 +245,20 @@
 	}
 	
 	function addNewTodo() {
-		$(".list").append("<li class='newTodoFrame'></li>");
-		$(".newTodoFrame").append("<input type='text' class='newTodoContents'>");
-		$(".newTodoFrame").append("<button onclick='addTodo()'>추가</button><button onclick='cancleAdd()'>취소</button>");
+		
+		if($(".list").children().length > 0) {
+			$(".list > li:first-child").before("<li class='newTodoFrame'></li>");
+			$(".newTodoFrame").append("<input type='text' class='newTodoContents'>");
+			$(".newTodoFrame").append("<button onclick='addTodo()'>추가</button><button onclick='cancleAdd()'>취소</button>");
+		
+		} else {
+			$(".list").append("<li class='newTodoFrame'></li>");
+			$(".newTodoFrame").append("<input type='text' class='newTodoContents'>");
+			$(".newTodoFrame").append("<button onclick='addTodo()'>추가</button><button onclick='cancleAdd()'>취소</button>");
+			
+		}	
 	}
-
+	
 </script>
 
 </html>

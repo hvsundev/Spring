@@ -3,13 +3,61 @@
 body {
 	margin: 0 auto;
 	background-image: url("../img/background.png");
-	background-size: 80%;
 	-ms-overflow-style: none;
 }
 
-/* ÃâÃ³: https://wooaoe.tistory.com/49 */
 ::-webkit-scrollbar { 
 	display: none;
+}
+
+@font-face {
+	font-family: 'LABµðÁöÅÐ';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/LABµðÁöÅÐ.woff') format('woff');
+}
+
+.time_wrap {
+	text-align: center;
+	height: 90px;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.time_wrap div.time_wrap_box {
+	display: inline-flex;
+}
+
+.time_wrap div.time_wrap_box div {
+	display: inline;
+	width: 30px;
+	height: 30px;
+	color: white;
+	background-color: #202020;
+	text-align: center;
+	font-size: 1.3rem;
+	padding: 2px;
+	margin: 0 0.2rem;
+	border-radius: 5px;
+}
+
+.time_wrap div.time_wrap_box span {
+	display: inline-block;
+	text-align: center;
+	width: 9px;
+	height: 30px;
+	margin: 0 0.3rem;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-image: url("../img/colon.png");
+	background-position: 0 7px;
+}
+
+.time_wrap input[type="date"] {
+	background: #be4a4a;
+	border: 0;
+	color: white;
+	text-align: center;
+	margin: 0.5rem 0 0.5rem 0;
+	font-weight: 700;
 }
 
 div.list_box {
@@ -95,6 +143,10 @@ span.count {
 	color: black;
 	width: 20px;
 	height: 20px;
+}
+
+.list button {
+	float: right;
 }
 
 div.btnAdd {
