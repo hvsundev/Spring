@@ -27,11 +27,13 @@ public class TodoController {
 	@Autowired
 	private TodoService service;
 	
-	@RequestMapping("/")
+	@ApiOperation(value="로그인 화면 진입", hidden = true)
+	@RequestMapping(value = "/")
 	private String goLogin() {
 		return "login";
 	}
 	
+	@ApiOperation(value="로그인 시도", hidden = true)
 	@RequestMapping(value = "/accessLogin", method = RequestMethod.POST)
 	private String accessLogin(HttpServletRequest req, @RequestParam String user_id, @RequestParam String user_pw) {
 		
@@ -43,10 +45,10 @@ public class TodoController {
 		//TODO: 로그인 처리 로직
 		//TODO: home에서 로그인되지않은 회원일 경우 로그인화면으로 이동
 		
-		
 		return "redirect:/home";
 	}
 	
+	@ApiOperation(value="Todo 화면 진입", hidden = true)
 	@RequestMapping("/home")
 	private String goHome(HttpServletRequest req) {
 		
@@ -68,7 +70,7 @@ public class TodoController {
 		return "todoList";
 	}
 	
-	@ApiOperation(value = "투두리스트 가져오기")
+	@ApiOperation(value = "TodoList 가져오기")
 	@RequestMapping(value = "/select/todoList", method = RequestMethod.POST)
 	@ResponseBody
 	private HashMap<String, Object> getTodoList(HttpServletRequest req, @RequestParam int searchType) {
@@ -86,7 +88,7 @@ public class TodoController {
 		return data;
 	}
 	
-	@ApiOperation(value = "투두리스트 추가하기")
+	@ApiOperation(value = "Todo 추가하기")
 	@RequestMapping(value = "/insert/todoList", method = RequestMethod.GET)
 	@ResponseBody
 	private HashMap<String, Object> addTodoList(HttpServletRequest req, @RequestParam String contents, @RequestParam int searchType) {
@@ -104,7 +106,7 @@ public class TodoController {
 		return data;
 	}
 	
-	@ApiOperation(value="체크 시 완료여부 반영")
+	@ApiOperation(value="Todo 체크 시 완료여부 반영")
 	@RequestMapping(value = "/update/todoList", method = RequestMethod.GET)
 	@ResponseBody
 	private HashMap<String, Object> updateComYnOfTodoList(HttpServletRequest req, @RequestParam int searchType, @RequestParam int idx) {
@@ -121,7 +123,7 @@ public class TodoController {
 		return data;
 	}
 	
-	@ApiOperation(value = "투두 삭제하기")
+	@ApiOperation(value = "Todo 삭제하기")
 	@RequestMapping(value = "/delete/todoList", method = RequestMethod.POST)
 	@ResponseBody
 	private HashMap<String, Object> deleteTodo(HttpServletRequest req, @RequestParam int idx, @RequestParam int searchType) {

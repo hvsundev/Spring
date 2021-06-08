@@ -8,10 +8,8 @@
 <meta charset="EUC-KR">
 
 <!-- CSS -->
-<link href="../css/css.css" rel="stylesheet" type="text/css">
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="static/css/css.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -39,12 +37,13 @@
 
 <script type="text/javascript">
 
-	// 아이디 기억 로직
+	// 아이디 기억 로직 (구현 중)
 	$(".rmbId").on('click', function() {
 		// 체크여부
 		var flag = $(this).prop("checked");
 	});
 		
+	// 로그인 로직 (구현 중)
 	function checkLogin() {
 		
 		var user_id = $("#user_id").val();

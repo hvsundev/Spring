@@ -3,7 +3,7 @@
 body {
 	margin: 0 auto;
 	background-image: url("../img/background.png");
-	background-size: 1937px 1325px;
+	background-size: 80%;
 	background-attachment: fixed;
 	-ms-overflow-style: none;
 }
@@ -62,34 +62,25 @@ body {
 	font-weight: 700;
 }
 
-divdiv.list {
-	clear: both;
-}
-
 div.list_box {
 	margin: 5rem auto;
 	width: 400px;
 	height: 500px;
 	padding: 2rem;
 	background-color: #be4a4a;
-	border: 6px solid #202020;
-	box-shadow: 0 0 10px 5px #b6a18e;
-}
-
-div.title {
-	text-align: center;
-	font-family: "Typo_Storm";
-	font-size: 2rem;
+	box-shadow: 0 0 20px 5px rgb(166, 140, 117);
 }
 
 div.btn_box {
 	margin-bottom: 1rem;
 }
 
+/* list */
 div.list {
 	height: 320px;
 	overflow-y: auto;
 	overflow-x: hidden;
+	clear: both;
 }
 
 div.list li {
