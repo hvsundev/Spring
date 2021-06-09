@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 
 <!-- CSS -->
 <link href="static/css/css.css" rel="stylesheet" type="text/css">
@@ -17,19 +17,19 @@
 		<div class="loginWrap">
 			<div class="intro">
 				<p class="color_green">Welcome!</p>
-				<p class="color_grey">¿À´ÃÀÇ ÇÒÀÏ</p>
+				<p class="color_grey">ì˜¤ëŠ˜ì˜ í• ì¼</p>
 			</div>
 			<div class="login">
 				<div>
-					<input id="user_id" value="dabinch" type="text" placeholder="¾ÆÀÌµð¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.">
-					<input id="user_pw" type="password" placeholder="ºñ¹Ð¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.">
+					<input id="user_id" value="dabinch" type="text" placeholder="ì•„ì´ë””ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš”.">
+					<input id="user_pw" type="password" placeholder="ë¹„ë°€ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš”.">
 				</div>
 				<div>
-					<input type="checkbox" class="rmbId"><label>¾ÆÀÌµð¸¦ ±â¾ïÇÒ·¡¿ä.</label>
+					<input type="checkbox" class="rmbId"><label>ì•„ì´ë””ë¥¼ ê¸°ì–µí• ëž˜ìš”.</label>
 				</div>
 			</div>
 			<div>
-				<button onClick="checkLogin()">·Î±×ÀÎ</button>
+				<button onClick="checkLogin()">ë¡œê·¸ì¸</button>
 			</div>
 		</div>
 	</div>
@@ -37,13 +37,13 @@
 
 <script type="text/javascript">
 
-	// ¾ÆÀÌµð ±â¾ï ·ÎÁ÷ (±¸Çö Áß)
+	// ì•„ì´ë”” ê¸°ì–µ ë¡œì§ (êµ¬í˜„ ì¤‘)
 	$(".rmbId").on('click', function() {
-		// Ã¼Å©¿©ºÎ
+		// ì²´í¬ì—¬ë¶€
 		var flag = $(this).prop("checked");
 	});
 		
-	// ·Î±×ÀÎ ·ÎÁ÷ (±¸Çö Áß)
+	// ë¡œê·¸ì¸ ë¡œì§ (êµ¬í˜„ ì¤‘)
 	function checkLogin() {
 		
 		var user_id = $("#user_id").val();
