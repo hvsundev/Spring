@@ -79,6 +79,7 @@ function setTime() {
 // $(document).on('click', className, function() {})으로 시도해보았으나
 // 이렇게되면 문제가 생겨서 function으로 따로 빼고 ajax 후 해당 function 호출함
 function initCheckBoxClickEvent() {
+	console.log("1");
 	$("input[type='checkbox']").on('click', function() {
 		// 체크여부
 		let flag = $(this).prop("checked");
@@ -153,7 +154,6 @@ function addTodo() {
 	
 	if(contents.length == 0) {
 		alert("값을 입력해주세요.");
-		// 텍스트박스 깜짝이게 하기
 	} else {
 		$.ajax({
 			url: "/insert/todoList",
@@ -166,7 +166,6 @@ function addTodo() {
 			success : function(data) {
 				if(data.isSuccess > 0) {
 					alert("등록완료되었습니다.");
-					var todoList = data.todoList;
 					refreshList(data);
 					initCheckBoxClickEvent();
 				}
@@ -177,6 +176,7 @@ function addTodo() {
 
 // 각 function에서 ajax 호출 후 TODO 목록 다시 그리기
 function refreshList(data) {
+	console.log("2");
 	let todoList = data.todoList;
 	$(".list").empty();
 	for(let i=0; i<todoList.length; i++) {
