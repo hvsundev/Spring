@@ -1,19 +1,20 @@
 
 	$(document).ready(function() {
 		initCheckBoxClickEvent();
-		
-		var listEl = $(".subTab > li");
-		listEl.click(function() {
-			var subIdx = $(this).val();
-			listEl.removeClass("active");
-			$(this).addClass("active");
-		})
-		
+		initSubTab();
 		showDeleteBtn();
 		setTime();
 		setInterval(setTime, 1000); // 1초마다 실행
 		
 	})
+	
+	function initSubTab() {
+		var listEl = $(".subTab > li");
+		listEl.click(function() {
+			listEl.removeClass("active");
+			$(this).addClass("active");
+		})
+	}
 	
 	// list에 마우스 오버 시 삭제버튼 노출
 	function showDeleteBtn() {

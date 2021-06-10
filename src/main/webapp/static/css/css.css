@@ -12,11 +12,7 @@ body {
 	display: none;
 }
 
-@font-face {
-	font-family: 'LAB디지털';
-	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/LAB디지털.woff') format('woff');
-}
-
+/* 시간 & 시계 */
 .time_wrap {
 	text-align: center;
 	height: 90px;
@@ -62,7 +58,8 @@ body {
 	font-weight: 700;
 }
 
-div.list_box {
+/* 전체박스 */
+.list_box {
 	margin: 5rem auto;
 	width: 400px;
 	height: 500px;
@@ -70,26 +67,38 @@ div.list_box {
 	background-color: #be4a4a;
 	box-shadow: 0 0 20px 5px rgb(166, 140, 117);
 }
-
-div.btn_box {
+.btn_box {
 	margin-bottom: 1rem;
 }
 
 /* list */
-div.list {
+.list {
 	height: 320px;
 	overflow-y: auto;
 	overflow-x: hidden;
 	clear: both;
 }
 
-div.list li {
+.list li {
 	list-style: none;
 	padding: 20px 15px;
 	margin-bottom: 0.5rem;
 }
 
-div.list span.empty_notice {
+.list li:nth-child(odd) {
+	background-color: #dfc1ae;
+}
+
+.list li:nth-child(even) {
+	background-color: #f5e2d3;
+}
+
+.list li.checked {
+	background-color: #342323;
+	color: #715555;
+}
+
+.list span.empty_notice {
 	color: white;
 	width: 400px;
 	text-align: center;
@@ -97,50 +106,36 @@ div.list span.empty_notice {
 	padding-top: 120px;
 }
 
-div.list li:nth-child(odd) {
-	background-color: #dfc1ae;
-}
-
-div.list li:nth-child(even) {
-	background-color: #f5e2d3;
-}
-
-div.list li.checked {
-	background-color: #342323;
-	color: #715555;
-	
-}
-
-div.list label {
+.list label {
 	vertical-align: 5px;
 	margin-left: 0.3rem;
 }
 
-div.list input[type="checkbox"] {
+.list input[type="checkbox"] {
 	width: 20px;
 	height: 20px;
 }
 
-div.list input[type="checkbox"]:checked {
+.list input[type="checkbox"]:checked {
 	color: black;
 	width: 20px;
 	height: 20px;
 	background-color: black;
 }
 
-div.list button.delBtn {
+.list button.delBtn {
 	float: right;
 }
 
-div.list .btn_wrap {
+.list .btn_wrap {
 	float: right;
 }
 
-div.list .btn_wrap button:last-child {
+.list .btn_wrap button:last-child {
 	margin-left: 0.2rem;
 }
 
-div.list input[type="text"].newTodoContents {
+.list input[type="text"].newTodoContents {
 	width: 260px;
 }
 
@@ -168,7 +163,7 @@ div.list input[type="text"].newTodoContents {
 	border: 1px solid white;
 }
 
-div.btnAdd {
+.subTab div.btnAdd {
 	padding: 10px;
 	font-weight: 700;
 	text-align: center;
@@ -180,10 +175,12 @@ div.btnAdd {
 	color: white;
 }
 
-div.btnAdd:hover {
+.subTab div.btnAdd:hover {
 	background-color: black;
 }
 
+
+/* 로그인화면 */
 div.loginWrap input[type="text"], input[type="password"] {
     width: 350px;
     height: 50px;
