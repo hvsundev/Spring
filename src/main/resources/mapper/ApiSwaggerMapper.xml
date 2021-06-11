@@ -30,5 +30,9 @@
 			call updateComYnOfTodoList( #{idx} )
 		}
 	</update>
+
+	<select id="getUserPw" resultType="String">
+		SELECT user_pw FROM user_info WHERE user_id=#{user_id}
+	</select>
     
  </mapper>

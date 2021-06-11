@@ -35,17 +35,26 @@ public class TodoController {
 	
 	@ApiOperation(value="로그인 시도", hidden = true)
 	@RequestMapping(value = "/accessLogin", method = RequestMethod.POST)
+	@ResponseBody
 	private String accessLogin(HttpServletRequest req, @RequestParam String user_id, @RequestParam String user_pw) {
 		
 		System.out.println("user_id >>> " + user_id);
 		
-		HttpSession session = req.getSession();
-		session.setAttribute("user_id", user_id); // 임시코드
+		int isPassed = service.loginCheck(user_id, user_pw);
+		System.out.println("결과값: " + isPassed);
 		
 		//TODO: 로그인 처리 로직
 		//TODO: home에서 로그인되지않은 회원일 경우 로그인화면으로 이동
-		
-		return "redirect:/home";
+		if(isPassed == 1) {
+			HttpSession session = req.getSession();
+			session.setAttribute("user_id", user_id); // 임시코드
+			
+			goHome(req); // 홈으로 이동
+			
+		} else {
+			System.out.println("비밀번호 틀렸음");
+			return "";
+		}
 	}
 	
 	@ApiOperation(value="Todo 화면 진입", hidden = true)

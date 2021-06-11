@@ -16,5 +16,8 @@ public interface TodoService {
 	public int updateComYnOfTodoList(int idx);
 	
 	// Todo 삭제하기
-	public int deleteTodo(int idx, String user_id);		
+	public int deleteTodo(int idx, String user_id);	
+	
+	// 로그인 체크
+	public int loginCheck(String user_id, String user_pw);
 }

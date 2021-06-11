@@ -39,5 +39,14 @@ public class TodoServiceImpl implements TodoService {
 	public int deleteTodo(int idx, String user_id) {
  		return mapper.deleteTodo(idx, user_id);
 	}
+
+	@Override
+	public int loginCheck(String user_id, String compare_user_pw) {
+		
+		String user_pw = mapper.getUserPw(user_id);
+		int isPassed = user_pw.equals(compare_user_pw) ? 1 : 0;
+		
+		return isPassed;
+	}
 	
 }

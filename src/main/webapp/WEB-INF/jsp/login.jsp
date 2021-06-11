@@ -21,7 +21,7 @@
 			</div>
 			<div class="login">
 				<div>
-					<input id="user_id" value="dabinch" type="text" placeholder="아이디를 입력해 주세요.">
+					<input id="user_id" type="text" placeholder="아이디를 입력해 주세요.">
 					<input id="user_pw" type="password" placeholder="비밀번호를 입력해 주세요.">
 				</div>
 				<div>
@@ -48,17 +48,25 @@
 		
 		var user_id = $("#user_id").val();
 		var user_pw = $("#user_pw").val();
-		$.ajax({
-			url: '/accessLogin',
-			method: 'POST',
-			async: true,
-			data: {
-				"user_id" : user_id,
-				"user_pw" : user_pw,
-			},
-			success: function() {
-			}
-		})
+		
+		console.log(user_id);
+		console.log(user_pw);
+		
+		if(user_id.length == 0 || user_pw.length == 0) {
+			alert("정보를 모두 입력해주세요.");
+		} else {
+			$.ajax({
+				url: '/accessLogin',
+				method: 'POST',
+				async: true,
+				data: {
+					"user_id" : user_id,
+					"user_pw" : user_pw,
+				},
+				success: function() {
+				}
+			})
+		}
 	}
 		
 </script>

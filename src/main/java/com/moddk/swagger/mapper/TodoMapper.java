@@ -14,5 +14,6 @@ public interface TodoMapper {
 	public int addTodoList(String contents, String user_id);
 	public int updateComYnOfTodoList(int idx);
 	public int deleteTodo(int idx, String user_id);
+	public String getUserPw(String user_id);
 }
 
