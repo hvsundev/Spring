@@ -15,6 +15,7 @@
 
 </head>
 <body>
+	<button onclick="location.href='/logout'">로그아웃</button>
 	<div class="list_box">
 		<!-- <span class="count">${fn:length(todoList)}개</span>  -->
 		<div class="time_wrap">

@@ -21,8 +21,8 @@
 			</div>
 			<div class="login">
 				<div>
-					<input id="user_id" type="text" placeholder="아이디를 입력해 주세요.">
-					<input id="user_pw" type="password" placeholder="비밀번호를 입력해 주세요.">
+					<input id="user_id" value="dabinch" type="text" placeholder="아이디를 입력해 주세요.">
+					<input id="user_pw" value="1234" type="password" placeholder="비밀번호를 입력해 주세요.">
 				</div>
 				<div>
 					<input type="checkbox" class="rmbId"><label>아이디를 기억할래요.</label>
@@ -63,7 +63,9 @@
 					"user_id" : user_id,
 					"user_pw" : user_pw,
 				},
-				success: function() {
+				success: function(data) {
+					console.log(data);
+					location.href = "/home";
 				}
 			})
 		}

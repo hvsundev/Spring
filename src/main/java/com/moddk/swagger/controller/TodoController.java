@@ -29,14 +29,33 @@ public class TodoController {
 	
 	@ApiOperation(value="로그인 화면 진입", hidden = true)
 	@RequestMapping(value = "/")
-	private String goLogin() {
+	private String goLogin(HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		String user_id = (String)session.getAttribute("user_id");
+		
+		System.out.println("user_id: " + user_id);
+		
+		if(user_id == null) {
+			return "login";
+			
+		} else {
+			return "redirect:/home";
+		}
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		
 		return "login";
 	}
 	
 	@ApiOperation(value="로그인 시도", hidden = true)
 	@RequestMapping(value = "/accessLogin", method = RequestMethod.POST)
 	@ResponseBody
-	private String accessLogin(HttpServletRequest req, @RequestParam String user_id, @RequestParam String user_pw) {
+	private int accessLogin(HttpServletRequest req, @RequestParam String user_id, @RequestParam String user_pw) {
 		
 		System.out.println("user_id >>> " + user_id);
 		
@@ -50,31 +69,23 @@ public class TodoController {
 			session.setAttribute("user_id", user_id); // 임시코드
 			
 			goHome(req); // 홈으로 이동
+			return isPassed;
 			
 		} else {
 			System.out.println("비밀번호 틀렸음");
-			return "";
+			return 2;
 		}
 	}
 	
 	@ApiOperation(value="Todo 화면 진입", hidden = true)
 	@RequestMapping("/home")
 	private String goHome(HttpServletRequest req) {
+	
+		HttpSession session = req.getSession();
+		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
 		
-		try {
-			System.out.println("[goHome] 여기?");
-			
-			HttpSession session = req.getSession();
-			String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
-			
-			System.out.println("[goHome] user_id >>> " + user_id);
-			
-			List<TodoVO> todoList = service.getTodoList(0, user_id);
-			req.setAttribute("todoList", todoList);
-			
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		List<TodoVO> todoList = service.getTodoList(0, user_id);
+		req.setAttribute("todoList", todoList);
 		
 		return "todoList";
 	}

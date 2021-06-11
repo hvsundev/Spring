@@ -212,5 +212,5 @@ function addNewTodo() {
 		$(".list").append("<li class='newTodoFrame'></li>");
 		$(".newTodoFrame").append("<input type='text' class='newTodoContents'>");
 		$(".newTodoFrame").append("<div class='btn_wrap'><button onclick='addTodo()'>추가</button><button onclick='cancleAdd()'>취소</button></div>");
-	}	
+	}
 }
