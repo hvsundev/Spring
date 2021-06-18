@@ -65,7 +65,11 @@
 				},
 				success: function(data) {
 					console.log(data);
-					location.href = "/home";
+					if(data == 1) {
+						location.href = "/home";
+					} else {
+						alert("아이디 또는 비밀번호가 틀렸습니다.");
+					}
 				}
 			})
 		}

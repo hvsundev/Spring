@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.	Gson;
 import com.moddk.swagger.service.TodoService;
 import com.moddk.swagger.vo.TodoVO;
 
@@ -22,20 +21,17 @@ import io.swagger.annotations.ApiOperation;
 @Controller
 public class TodoController {
 	
-	private Gson gson = new Gson();
-	
 	@Autowired
 	private TodoService service;
 	
-	@ApiOperation(value="로그인 화면 진입", hidden = true)
+	@ApiOperation(value="초기 화면 진입", hidden = true)
 	@RequestMapping(value = "/")
 	private String goLogin(HttpServletRequest req) {
 		
 		HttpSession session = req.getSession();
 		String user_id = (String)session.getAttribute("user_id");
 		
-		System.out.println("user_id: " + user_id);
-		
+		// 기존에 로그인되어 있으면 home으로 redirect
 		if(user_id == null) {
 			return "login";
 			
@@ -47,6 +43,7 @@ public class TodoController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		
+		// 로그아웃이면 session 만료
 		session.invalidate();
 		
 		return "login";
@@ -57,24 +54,17 @@ public class TodoController {
 	@ResponseBody
 	private int accessLogin(HttpServletRequest req, @RequestParam String user_id, @RequestParam String user_pw) {
 		
-		System.out.println("user_id >>> " + user_id);
-		
+		// 비밀번호 검사 후 맞으면 1, 아니면 0 return
 		int isPassed = service.loginCheck(user_id, user_pw);
-		System.out.println("결과값: " + isPassed);
 		
-		//TODO: 로그인 처리 로직
-		//TODO: home에서 로그인되지않은 회원일 경우 로그인화면으로 이동
 		if(isPassed == 1) {
 			HttpSession session = req.getSession();
-			session.setAttribute("user_id", user_id); // 임시코드
+			session.setAttribute("user_id", user_id);
 			
 			goHome(req); // 홈으로 이동
-			return isPassed;
-			
-		} else {
-			System.out.println("비밀번호 틀렸음");
-			return 2;
 		}
+		
+		return isPassed;
 	}
 	
 	@ApiOperation(value="Todo 화면 진입", hidden = true)
@@ -82,7 +72,7 @@ public class TodoController {
 	private String goHome(HttpServletRequest req) {
 	
 		HttpSession session = req.getSession();
-		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
+		String user_id = (String)session.getAttribute("user_id");
 		
 		List<TodoVO> todoList = service.getTodoList(0, user_id);
 		req.setAttribute("todoList", todoList);
@@ -98,7 +88,7 @@ public class TodoController {
 		System.out.println("searchType " + searchType);
 		
 		HttpSession session = req.getSession();
-		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
+		String user_id = (String)session.getAttribute("user_id");
 		
 		List<TodoVO> todoList = service.getTodoList(searchType, user_id);
 		
@@ -114,7 +104,7 @@ public class TodoController {
 	private HashMap<String, Object> addTodoList(HttpServletRequest req, @RequestParam String contents, @RequestParam int searchType) {
 		
 		HttpSession session = req.getSession();
-		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
+		String user_id = (String)session.getAttribute("user_id");
 		
 		int isSuccess = service.addTodoList(contents, user_id);
 		System.out.println(isSuccess > 0 ? "성공" : "실패");
@@ -135,7 +125,7 @@ public class TodoController {
 		System.out.println(result);
 		
 		HttpSession session = req.getSession();
-		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
+		String user_id = (String)session.getAttribute("user_id");
 		
 		HashMap<String, Object> data = new HashMap<>();
 		data.put("todoList", service.getTodoList(searchType, user_id));
@@ -150,7 +140,7 @@ public class TodoController {
 		
 		
 		HttpSession session = req.getSession();
-		String user_id = (String)session.getAttribute("user_id"); // 구현 후 주석풀기
+		String user_id = (String)session.getAttribute("user_id");
 		
 		service.deleteTodo(idx, user_id);
 

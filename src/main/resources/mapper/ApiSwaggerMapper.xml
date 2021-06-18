@@ -4,8 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.moddk.swagger.mapper.TodoMapper">
-    
 	<select id="getAllTodoList" resultType="com.moddk.swagger.vo.TodoVO">
+    
 		SELECT * FROM todo WHERE user_id=#{user_id}
 	</select>
     
